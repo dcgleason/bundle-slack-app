@@ -10,7 +10,9 @@ router.get('/',(req, res)=>{
 
 router.post('/send', (req, res) => {
 
-  console.log('req.body' + req.body)
+  res.send(200);
+
+  console.log('req.body' + JSON.stringify(req.body));
 
 // sending 4 x 6 handwritten post card 
 
