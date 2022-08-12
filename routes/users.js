@@ -9,7 +9,8 @@ router.get('/',(req, res)=>{
 })
 
 router.post('/send', (req, res) => {
-    
+
+  console.log('req.body' + req.body)
 
 // sending 4 x 6 handwritten post card 
 
@@ -19,7 +20,7 @@ router.post('/send', (req, res) => {
         "recipients": [
           {
             "name": req.body.name,
-            "address": req.body.street,
+            "address": req.body.street, 
             "city": req.body.city,
             "province": req.body.state,
             "postal_code": req.body.postal,
@@ -40,15 +41,15 @@ router.post('/send', (req, res) => {
         data : data
       };
       
-      axios(config)
-      .then(function (response) {
-        console.log('post card response' + JSON.stringify(response.data));
-        res.send(JSON.stringify(response.data))
-      })
-      .catch(function (error) {
-        console.log('postcard send error' + error);
-        res.send(error);
-      });
+      // axios(config)
+      // .then(function (response) {
+      //   console.log('post card response' + JSON.stringify(response.data));
+      //   res.send(JSON.stringify(response.data))
+      // })
+      // .catch(function (error) {
+      //   console.log('postcard send error' + error);
+      //   res.send(error);
+      // });
 
 })
 
