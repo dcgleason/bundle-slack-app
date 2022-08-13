@@ -36,9 +36,10 @@ router.post('/send', async (req, res) => {
           "blocks": [
             {
                 "type": "input",
+                "block_id": "street_input",
                 "element": {
                     "type": "plain_text_input",
-                    "action_id": "plain_text_input-action"
+                    "action_id": "plain_text_input-city"
                 },
                 "label": {
                     "type": "plain_text",
@@ -48,9 +49,10 @@ router.post('/send', async (req, res) => {
             },
             {
                 "type": "input",
+                "block_id": "city_input",
                 "element": {
                     "type": "plain_text_input",
-                    "action_id": "plain_text_input-action"
+                    "action_id": "plain_text_input-city"
                 },
                 "label": {
                     "type": "plain_text",
@@ -60,9 +62,10 @@ router.post('/send', async (req, res) => {
             },
             {
                 "type": "input",
+                "block_id": "state_input",
                 "element": {
                     "type": "plain_text_input",
-                    "action_id": "plain_text_input-action"
+                    "action_id": "plain_text_input-state"
                 },
                 "label": {
                     "type": "plain_text",
@@ -72,9 +75,10 @@ router.post('/send', async (req, res) => {
             },
             {
                 "type": "input",
+                "block_id": "postal_input",
                 "element": {
                     "type": "plain_text_input",
-                    "action_id": "plain_text_input-action"
+                    "action_id": "plain_text_input-postal"
                 },
                 "label": {
                     "type": "plain_text",
@@ -84,9 +88,10 @@ router.post('/send', async (req, res) => {
             },
             {
                 "type": "input",
+                "block_id": "country_input",
                 "element": {
                     "type": "plain_text_input",
-                    "action_id": "plain_text_input-action"
+                    "action_id": "plain_text_input-country"
                 },
                 "label": {
                     "type": "plain_text",
@@ -96,10 +101,11 @@ router.post('/send', async (req, res) => {
             },
             {
                 "type": "input",
+                "block_id": "message_input",
                 "element": {
                     "type": "plain_text_input",
                     "multiline": true,
-                    "action_id": "plain_text_input-action"
+                    "action_id": "plain_text_input-message"
                 },
                 "label": {
                     "type": "plain_text",
