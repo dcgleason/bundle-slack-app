@@ -19,7 +19,6 @@ router.post('/send', (req, res) => {
 
     try{
 
-      await ack();
 
       const result = await client.views.open({
         trigger_id: req.body.trigger_id,
