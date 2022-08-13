@@ -12,14 +12,13 @@ router.post('/send', async (req, res) => {
 
   res.sendStatus(200);
 
-  if(req.body.type == 'block_actions' || req.body.type == 'shortcut'){
-
-    console.log('test value: ' + req.body.view.state.values);
-    console.log('test value2: ' + req.body.state.values);
+  console.log("req.body.type" + req.body.type);
+  console.log('test value: ' + req.body.view.state.values);
+  console.log('test value2: ' + req.body.state.values);
 
    
 
-  }
+  
 
 
 // sending 4 x 6 handwritten post card 
@@ -64,6 +63,12 @@ router.post('/send', async (req, res) => {
 router.post('/ticket', (req, res) => {
   res.sendStatus(200);
   res.send('testing');
+
+  console.log("ticket req.body.type" + req.body.type);
+  console.log('ticket test value: ' + req.body.view.state.values);
+  console.log('ticket test value2: ' + req.body.state.values);
+
+
 
 })
 
