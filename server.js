@@ -3,14 +3,21 @@ const express = require('express')
 const appExpress = express()
 const mongoose = require('mongoose')
 const axios = require('axios')
-const { App } = require("@slack/bolt");
+const { App, ExpressReceiver } = require('@slack/bolt');
+
+const receiver = new ExpressReceiver({ signingSecret: process.env.signingSecret });
 
 const app = new App({
-    token: process.env.token, //Find in the Oauth  & Permissions tab
-    signingSecret: process.env.singingSecret, // Find in Basic Information Tab
-    socketMode:false,
-    appToken: process.env.SLACK_APP_TOKEN // Token from the App-level Token that we created
-  });
+  token: process.env.token,
+  receiver
+});
+
+// const app = new App({
+//     token: process.env.token, //Find in the Oauth  & Permissions tab
+//     signingSecret: process.env.singingSecret, // Find in Basic Information Tab
+//     socketMode:false,
+//     appToken: process.env.SLACK_APP_TOKEN // Token from the App-level Token that we created
+//   });
   
 
 appExpress.use((req, res, next) => {
@@ -74,5 +81,6 @@ appExpress.listen(port, ()=>{
 })
 
 module.exports = {
-    app: app
+    app: app,
+    receiver: receiver
 }

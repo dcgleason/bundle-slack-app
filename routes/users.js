@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 var axios = require('axios');
 const app = require('../server');
+const receiver = require('../server');
 
 
 
@@ -10,7 +11,7 @@ router.get('/',(req, res)=>{
     res.send("Users home page!!!")
 })
 
-router.post('/send', async (req, res) => {
+receiver.router.post('/send', async (req, res) => {
 
   res.sendStatus(200);
 
@@ -62,7 +63,7 @@ router.post('/send', async (req, res) => {
 
 })
 
-router.post('/ticket', (req, res) => {
+receiver.router.post('/ticket', (req, res) => {
  
   res.send('testing');
 
