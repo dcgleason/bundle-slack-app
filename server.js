@@ -1,11 +1,19 @@
 require('dotenv').config({ path: require('find-config')('.env') })
 const express = require('express')
-const app = express()
+const appExpress = express()
 const mongoose = require('mongoose')
 const axios = require('axios')
+const { App } = require("@slack/bolt");
 
+export const app = new App({
+    token: process.env.token, //Find in the Oauth  & Permissions tab
+    signingSecret: process.env.singingSecret, // Find in Basic Information Tab
+    socketMode:false,
+    appToken: process.env.SLACK_APP_TOKEN // Token from the App-level Token that we created
+  });
+  
 
-app.use((req, res, next) => {
+appExpress.use((req, res, next) => {
    
     const allowedOrigins = ['http://localhost:3000'];
     const origin = req.headers.origin;
@@ -48,12 +56,12 @@ connectDB()
 
 
 // app route controllers - app.use
-app.use("/users", users);
+appExpress.use("/users", users);
 
 
 
 // app root route app.get
-app.get("/",(req,res)=>{
+appExpress.get("/",(req,res)=>{
     console.log('root')
     res.send("APP ROOT")
  
@@ -61,6 +69,6 @@ app.get("/",(req,res)=>{
 
 
 //server initialization
-app.listen(port, ()=>{
+appExpress.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`)
 })

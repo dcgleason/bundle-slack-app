@@ -1,14 +1,8 @@
 const express = require('express')
-const { App } = require("@slack/bolt");
 const router = express.Router()
 var axios = require('axios');
+import {app} from '../server';
 
-const app = new App({
-  token: process.env.token, //Find in the Oauth  & Permissions tab
-  signingSecret: process.env.singingSecret, // Find in Basic Information Tab
-  socketMode:false,
-  appToken: process.env.SLACK_APP_TOKEN // Token from the App-level Token that we created
-});
 
 
 //users Home page
