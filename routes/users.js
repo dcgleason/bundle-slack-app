@@ -12,13 +12,134 @@ router.post('/send', (req, res) => {
 
   res.send(200);
 
-  console.log('req.body' + JSON.stringify(req.body));
+  if(req.body.type == 'block_actions' || req.body.type == 'shortcuts'){
+
+    try{
+
+    const result = await client.views.open({
+      trigger_id: req.body.trigger_id,
+      view: {
+        "type": "modal",
+        "title": {
+          "type": "plain_text",
+          "text": "Bundle"
+        },
+        "close": {
+          "type": "plain_text",
+          "text": "Close"
+        },
+
+        "blocks": [
+          {
+              "type": "input",
+              "element": {
+                  "type": "plain_text_input",
+                  "action_id": "plain_text_input-action"
+              },
+              "label": {
+                  "type": "plain_text",
+                  "text": "Recipient street address",
+                  "emoji": true
+              }
+          },
+          {
+              "type": "input",
+              "element": {
+                  "type": "plain_text_input",
+                  "action_id": "plain_text_input-action"
+              },
+              "label": {
+                  "type": "plain_text",
+                  "text": "Recipient city",
+                  "emoji": true
+              }
+          },
+          {
+              "type": "input",
+              "element": {
+                  "type": "plain_text_input",
+                  "action_id": "plain_text_input-action"
+              },
+              "label": {
+                  "type": "plain_text",
+                  "text": "Recipient state/province",
+                  "emoji": true
+              }
+          },
+          {
+              "type": "input",
+              "element": {
+                  "type": "plain_text_input",
+                  "action_id": "plain_text_input-action"
+              },
+              "label": {
+                  "type": "plain_text",
+                  "text": "Recipient postal code",
+                  "emoji": true
+              }
+          },
+          {
+              "type": "input",
+              "element": {
+                  "type": "plain_text_input",
+                  "action_id": "plain_text_input-action"
+              },
+              "label": {
+                  "type": "plain_text",
+                  "text": "Recipient country",
+                  "emoji": true
+              }
+          },
+          {
+              "type": "input",
+              "element": {
+                  "type": "plain_text_input",
+                  "multiline": true,
+                  "action_id": "plain_text_input-action"
+              },
+              "label": {
+                  "type": "plain_text",
+                  "text": "Your message",
+                  "emoji": true
+              }
+          },
+          {
+              "type": "section",
+              "text": {
+                  "type": "mrkdwn",
+                  "text": "Click submit to send a letter (in the mail)"
+              },
+              "accessory": {
+                  "type": "button",
+                  "text": {
+                      "type": "plain_text",
+                      "text": "Submit",
+                      "emoji": true
+                  },
+                  "value": "click_me_123",
+                  "action_id": "button-action"
+              }
+          }
+      ]
+      }
+    });
+
+    console.log(result);
+
+  }
+catch {
+  console.log('error while popping up the modal');
+}
+  
+
+  }
+
 
 // sending 4 x 6 handwritten post card 
 
     var data = JSON.stringify({
         "handwriting_style": 12,
-        "message": req.body.message,
+        "message": req.body.text,
         "recipients": [
           {
             "name": req.body.name,
@@ -28,9 +149,7 @@ router.post('/send', (req, res) => {
             "postal_code": req.body.postal,
             "country": req.body.country
           }
-        ],
-        "giftcard_brand": req.body.brand,
-        "giftcard_amount_in_cents": req.body.amount
+        ]
       });
       
       var config = {
