@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 var axios = require('axios');
-import {app} from '../server';
+const app = require('../server');
 
 
 
