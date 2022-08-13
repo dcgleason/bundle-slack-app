@@ -8,7 +8,7 @@ router.get('/',(req, res)=>{
     res.send("Users home page!!!")
 })
 
-router.post('/send', (req, res) => {
+router.post('/send', async (req, res) => {
 
   res.sendStatus(200);
 
