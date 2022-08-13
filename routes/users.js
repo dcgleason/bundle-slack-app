@@ -17,6 +17,125 @@ router.post('/send', (req, res) => {
     console.log('test value: ' + req.body.view.state.values);
     console.log('test value2: ' + req.body.state.values);
 
+    try{
+
+      await ack();
+
+      const result = await client.views.open({
+        trigger_id: req.body.trigger_id,
+        view: {
+          "type": "modal",
+          "title": {
+            "type": "plain_text",
+            "text": "Bundle"
+          },
+          "close": {
+            "type": "plain_text",
+            "text": "Close"
+          },
+  
+          "blocks": [
+            {
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "action_id": "plain_text_input-action"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Recipient street address",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "action_id": "plain_text_input-action"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Recipient city",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "action_id": "plain_text_input-action"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Recipient state/province",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "action_id": "plain_text_input-action"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Recipient postal code",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "action_id": "plain_text_input-action"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Recipient country",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "multiline": true,
+                    "action_id": "plain_text_input-action"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Your message",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "Click submit to send a letter (in the mail)"
+                },
+                "accessory": {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Submit",
+                        "emoji": true
+                    },
+                    "value": "click_me_123",
+                    "action_id": "button-action"
+                }
+            }
+        ]
+        }
+      });
+  
+      res.send(result)
+  
+    }
+  catch {
+    console.log('error while popping up the modal');
+  }
+
   }
 
 
@@ -61,7 +180,7 @@ router.post('/send', (req, res) => {
 
 router.post('/echo', (req, res) => {
   res.sendStatus(200);
-  
+
 })
 
 module.exports = router;
