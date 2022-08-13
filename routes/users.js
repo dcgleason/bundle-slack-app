@@ -59,4 +59,9 @@ router.post('/send', (req, res) => {
 
 })
 
+router.post('/echo', (req, res) => {
+  res.sendStatus(200);
+  
+})
+
 module.exports = router;
