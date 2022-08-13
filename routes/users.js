@@ -61,8 +61,9 @@ router.post('/send', async (req, res) => {
 
 })
 
-router.post('/echo', (req, res) => {
+router.post('/ticket', (req, res) => {
   res.sendStatus(200);
+  res.send('testing');
 
 })
 
