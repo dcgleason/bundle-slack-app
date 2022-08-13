@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const axios = require('axios')
 const { App } = require("@slack/bolt");
 
-export const app = new App({
+const app = new App({
     token: process.env.token, //Find in the Oauth  & Permissions tab
     signingSecret: process.env.singingSecret, // Find in Basic Information Tab
     socketMode:false,
@@ -72,3 +72,5 @@ appExpress.get("/",(req,res)=>{
 appExpress.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`)
 })
+
+export default app;
