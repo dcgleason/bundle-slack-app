@@ -12,7 +12,7 @@ router.post('/send', (req, res) => {
 
   res.send(200);
 
-  if(req.body.type == 'block_actions' || req.body.type == 'shortcuts'){
+  if(req.body.type == 'block_actions' || req.body.type == 'shortcut'){
 
     try{
 
