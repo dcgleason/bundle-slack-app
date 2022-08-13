@@ -1,6 +1,14 @@
 const express = require('express')
+const { App } = require("@slack/bolt");
 const router = express.Router()
 var axios = require('axios');
+
+const app = new App({
+  token: process.env.token, //Find in the Oauth  & Permissions tab
+  signingSecret: process.env.singingSecret, // Find in Basic Information Tab
+  socketMode:false,
+  appToken: process.env.SLACK_APP_TOKEN // Token from the App-level Token that we created
+});
 
 
 //users Home page
@@ -61,12 +69,75 @@ router.post('/send', async (req, res) => {
 })
 
 router.post('/ticket', (req, res) => {
-  res.sendStatus(200);
+ 
   res.send('testing');
+
 
   console.log("ticket req.body.type" + req.body.type);
   console.log('ticket test value: ' + req.body.view.state.values);
   console.log('ticket test value2: ' + req.body.state.values);
+  res.sendStatus(200);
+
+  app.command('/ticket', async ({ ack, body, client, logger }) => {
+    // Acknowledge the command request
+    await ack();
+  
+    try {
+      // Call views.open with the built-in client
+      const result = await client.views.open({
+        // Pass a valid trigger_id within 3 seconds of receiving it
+        trigger_id: body.trigger_id,
+        // View payload
+        view: {
+          type: 'modal',
+          // View identifier
+          callback_id: 'view_1',
+          title: {
+            type: 'plain_text',
+            text: 'Modal title'
+          },
+          blocks: [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: 'Welcome to a modal with _blocks_'
+              },
+              accessory: {
+                type: 'button',
+                text: {
+                  type: 'plain_text',
+                  text: 'Click me!'
+                },
+                action_id: 'button_abc'
+              }
+            },
+            {
+              type: 'input',
+              block_id: 'input_c',
+              label: {
+                type: 'plain_text',
+                text: 'What are your hopes and dreams?'
+              },
+              element: {
+                type: 'plain_text_input',
+                action_id: 'dreamy_input',
+                multiline: true
+              }
+            }
+          ],
+          submit: {
+            type: 'plain_text',
+            text: 'Submit'
+          }
+        }
+      });
+      logger.info("ticket view result" + result);
+    }
+    catch (error) {
+      logger.error(error);
+    }
+  });
 
 
 
