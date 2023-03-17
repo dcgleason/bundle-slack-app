@@ -1,18 +1,16 @@
 require('dotenv').config();
 const { App, LogLevel } = require('@slack/bolt');
-const { WebClient } = require('@slack/web-api');
+const { SocketModeReceiver } = require('@slack/socket-mode');
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
-  appToken: process.env.SLACK_APP_TOKEN,
+  receiver: new SocketModeReceiver({ appToken: process.env.SLACK_APP_TOKEN }),
   logLevel: LogLevel.DEBUG,
 });
 
-const web = new WebClient(process.env.SLACK_BOT_TOKEN);
-
 (async () => {
-  await app.start(process.env.PORT || 3000);
-  console.log('⚡️ Bolt app is running!');
+  await app.start();
+  console.log('⚡️ Bolt app is running in Socket Mode!');
 })();
 
 app.command('/create-gift-channel', async ({ command, ack, respond }) => {
